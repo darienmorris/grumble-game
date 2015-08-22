@@ -34,7 +34,6 @@ gulp.task('html', function () {
 // Clean
 //-----------------------------------------------------------------
 
-// TODO: get this task to work with the watcher!!! GAAAH
 gulp.task('clean-assets', function(cb) {
   	return gulp.src('build/assets/*', { read: false })
 	    .pipe(rimraf());
@@ -67,11 +66,14 @@ gulp.task('scripts', function() {
 // Images
 //-----------------------------------------------------------------
 
-//TODO: only optimize images that have changed!
-gulp.task('images', ['clean-assets'], function() {
-  return gulp.src(paths.images)
-    .pipe(imagemin({optimizationLevel: 1}))
-    .pipe(gulp.dest('build/assets'));
+// Images in the build are deleted and replaced each time this
+// task runs.
+// TODO: only optimize images that have changed?
+gulp.task('images', function() {
+	gulp.src('build/assets', { read: false }).pipe(rimraf());
+  	return gulp.src(paths.images)
+    	.pipe(imagemin({optimizationLevel: 1}))
+    	.pipe(gulp.dest('build/assets'));
 });
 
 
