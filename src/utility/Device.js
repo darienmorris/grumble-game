@@ -1,0 +1,5 @@
+/*
+	
+	Device detection and other device specific methods.
+	
+ */

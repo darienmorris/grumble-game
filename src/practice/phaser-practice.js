@@ -14,7 +14,7 @@ Game.prototype = {
 		//game.state.add("battle");
 		game.state.start("boot");
 	}
-}
+};
 
 
 
