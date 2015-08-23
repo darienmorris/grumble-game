@@ -5,8 +5,9 @@ var gulp = require('gulp'),
   	imagemin = require('gulp-imagemin'),
   	rimraf = require('gulp-rimraf');
 
+// TODO: We need scripts to be processed in a certain order
 var paths = {
-	scripts: ['src/**/*.js', 'lib/**/*.js'],
+	scripts: ['lib/**/*.js', 'src/**/*.js'],
 	images: 'assets/**/*'
 };
 
