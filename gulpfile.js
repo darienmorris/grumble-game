@@ -1,6 +1,7 @@
 var gulp = require('gulp'),
 	concat = require('gulp-concat'),
 	uglify = require('gulp-uglify'),
+	babel = require("gulp-babel"),
   	connect = require('gulp-connect'),
   	imagemin = require('gulp-imagemin'),
   	rimraf = require('gulp-rimraf');
@@ -50,10 +51,16 @@ gulp.task('scripts', function() {
 
 	if(!production){
 		pipeline = gulp.src(paths.scripts)
+			.pipe(babel({
+				ignore: 'lib/'
+			}))
 		    .pipe(concat('main.min.js'))
 		    .pipe(gulp.dest('build/js'));
 	} else {
 		pipeline = gulp.src(paths.scripts)
+			.pipe(babel({
+				ignore: 'lib/**/*.js'
+			}))
 	      	.pipe(uglify())
 	      	.pipe(concat('main.min.js'))
 		    .pipe(gulp.dest('build/js'));
@@ -93,4 +100,4 @@ gulp.task('watch', function () {
 // Default Task
 //-----------------------------------------------------------------
 
-gulp.task('default', ['connect', 'scripts', 'images', 'watch',]);
+gulp.task('default', ['connect', 'scripts', 'images', 'watch']);
