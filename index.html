@@ -7,5 +7,10 @@
 	<h1>Grumble grumble...</h1>
 	<div id="game"></div>
 	<script type="text/javascript" src="build/js/main.min.js"></script>
+	<script type="text/javascript">
+		(function(root){
+			root.gg.game = new root.GG.Game();
+		})(window);
+	</script>
 </body>
 </html>
