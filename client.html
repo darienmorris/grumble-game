@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Grumble</title>
+	<script type="text/javascript" src="assets/js/phaser.min.js"></script>
+	<script type="text/javascript" src="node_modules/socket.io-client/socket.io.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
+
+</head>
+<body>
+	<h1>Grumble grumble...</h1>
+	<button id='server-connect'>Connect!</button>
+	<div>
+		<textarea id='chat-area' cols="30" rows="15"></textarea>
+	</div>
+
+	<script>
+		$('#chat-area').keyup(function() {
+			socket.emit('typing', $('#chat-area').val());
+		});
+
+		var socket = io.connect("http://localhost:8000");
+
+		socket.on('typing', function(message) {
+			$('#chat-area').html(message);
+		});
+	</script>
+</body>
+</html>
