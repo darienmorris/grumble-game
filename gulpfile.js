@@ -46,6 +46,7 @@ gulp.task('clean-assets', function(cb) {
 // Scripts
 //-----------------------------------------------------------------
 
+// TODO: need a way to link and check for errors with Babel code
 gulp.task('scripts', function() {
 	var pipeline;
 

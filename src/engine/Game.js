@@ -2,8 +2,8 @@ var GG = GG || {},
 	gg = gg || {};
 
 GG.Game = class Game {
-	constructor(msg) {
-		console.log(msg);
+	constructor() {
+		console.log("New game: ", this);
 
 		this.managers = {
 			screen: new GG.ScreenManager()
@@ -19,7 +19,15 @@ GG.Game = class Game {
 		this.addScreens(game);
 	}
 
-	addScreens() {
+	addScreens(game) {
+		let startScreenName = this.managers.screen.startScreen;
 		let screens = this.managers.screen.screens;
+
+		_.forEach(screens, function(screen, key){
+			console.log(key, screen);
+			game.state.add(key, screen);
+		});
+
+		game.state.start(startScreenName);
 	}
 };

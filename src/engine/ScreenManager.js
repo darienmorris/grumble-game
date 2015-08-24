@@ -1,18 +1,19 @@
-
 GG.ScreenManager = class ScreenManager {
+
 	constructor() {
+		this.startScreen = "intro";
 		this.initScreens();
 	}
 
-	get screens() {
-		return;
+	initScreens() {
+		this._screens = {
+			intro: GG.IntroScreen,
+			login: GG.LoginScreen,
+			//menu: new MenuScreen()
+		}
 	}
 
-	initScreens() {
-		this.screens = {
-			/*intro: new IntroScreen(),
-			login: new LoginScreen(),
-			menu: new MenuScreen()*/
-		}
+	get screens() {
+		return this._screens;
 	}
 };
