@@ -6,9 +6,9 @@ var gulp = require('gulp'),
   	imagemin = require('gulp-imagemin'),
   	rimraf = require('gulp-rimraf');
 
-// TODO: We need scripts to be processed in a certain order
+// TODO: We need scripts to be processed in a certain order?
 var paths = {
-	scripts: ['lib/**/*.js', 'src/**/*.js'],
+	scripts: ['lib/**/*.js', 'src/engine/Game.js', 'src/**/*.js'],
 	images: 'assets/**/*'
 };
 
@@ -36,6 +36,8 @@ gulp.task('html', function () {
 // Clean
 //-----------------------------------------------------------------
 
+// Currently not in use! 
+
 gulp.task('clean-assets', function(cb) {
   	return gulp.src('build/assets/*', { read: false })
 	    .pipe(rimraf());
@@ -60,7 +62,7 @@ gulp.task('scripts', function() {
 	} else {
 		pipeline = gulp.src(paths.scripts)
 			.pipe(babel({
-				ignore: 'lib/**/*.js'
+				ignore: 'lib/' 
 			}))
 	      	.pipe(uglify())
 	      	.pipe(concat('main.min.js'))

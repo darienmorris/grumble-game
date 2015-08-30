@@ -1,7 +1,6 @@
 GG.ScreenManager = class ScreenManager {
 
 	constructor() {
-		this.startScreen = "intro";
 		this.initScreens();
 	}
 
@@ -11,9 +10,13 @@ GG.ScreenManager = class ScreenManager {
 			login: GG.LoginScreen,
 			//menu: new MenuScreen()
 		}
-	}
-
+	} 
+ 
 	get screens() {
 		return this._screens;
+	}
+
+	get startScreen() {
+		return 'intro';
 	}
 };

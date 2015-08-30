@@ -13,13 +13,14 @@ GG.Game = class Game {
 	}
 
 	start() {
-		let game = new Phaser.Game(800, 600, Phaser.AUTO, 'game');
+		window.game = new Phaser.Game(800, 600, Phaser.AUTO, "game");
 
 
-		this.addScreens(game);
-	}
+		this.addScreens();
+	} 
 
-	addScreens(game) {
+	// TODO: Move this method to the screen manager
+	addScreens() {
 		let startScreenName = this.managers.screen.startScreen;
 		let screens = this.managers.screen.screens;
 

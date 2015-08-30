@@ -1,0 +1,3 @@
+GG.AudioManager = class AudioManager {
+	
+};
