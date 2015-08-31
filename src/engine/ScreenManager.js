@@ -1,13 +1,16 @@
 GG.ScreenManager = class ScreenManager {
 
 	constructor() {
+		this._startScreen = "intro";
+		
 		this.initScreens();
+		this.addScreens();
 	}
 
 	initScreens() {
 		this._screens = {
 			intro: GG.IntroScreen,
-			login: GG.LoginScreen,
+			login: GG.LoginScreen
 			//menu: new MenuScreen()
 		}
 	} 
@@ -16,7 +19,16 @@ GG.ScreenManager = class ScreenManager {
 		return this._screens;
 	}
 
-	get startScreen() {
-		return 'intro';
+	addScreens() {
+		let screens = this.screens;
+
+		_.forEach(screens, function(screen, key){
+			console.log(key, screen);
+			game.state.add(key, screen);
+		});
+	}
+
+	startFirstScreen() {
+		game.state.start(this._startScreen);
 	}
 };
