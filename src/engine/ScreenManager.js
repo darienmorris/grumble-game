@@ -1,3 +1,5 @@
+// TODO: look into phaser's StateManager
+
 GG.ScreenManager = class ScreenManager {
 
 	constructor() {
