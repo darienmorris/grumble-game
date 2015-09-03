@@ -3,10 +3,17 @@ GG.IntroScreen = class IntroScreen extends GG.Screen {
 	constructor() {
 		super();
 
-		this.tick = 0;
+		this.wasNextButtonCreated = false;
 		this._images = [
-			{ id: "ness", src: "build/assets/ness.png" },
-			{ id: "erik", src: "build/assets/cards/eck.png" }
+			{ id: "ness", src: "build/assets/images/ness.png" },
+			{ id: "erik", src: "build/assets/images/cards/eck.png" }
+		];
+		this._spritesheets = [
+			{ id: "button", src: "build/assets/images/button_sprite_sheet.png", x: 193, y: 71 }
+		];
+		this._audio = [
+			{ id: "sax", src: "build/assets/audio/moca__saxu.mp3" },
+			{ id: "hint", src: "build/assets/audio/dland__hint.wav"}
 		];
 
 	}
@@ -71,12 +78,29 @@ GG.IntroScreen = class IntroScreen extends GG.Screen {
 	}
 
 	startDrag(sprite) {
+		game.sound.play("sax");
 		this.sprite.ness.body.moves = false;
 		this.msg.setText(":3");
 	}
 
 	 stopDrag(sprite) {
+	 	game.sound.play("hint");
 		this.sprite.ness.body.moves = true;
-		this.msg.setText("Click and drag Ness.");		
+		this.msg.setText("Click and drag Ness.");	
+
+		if(!this.wasNextButtonCreated)	{
+			this.createNextButton();
+		}
+	}
+
+	createNextButton() {
+		let button = game.add.button(game.world.centerX, game.world.height - 50, "button", this.changeScreen, this, 2, 1, 0);
+		button.anchor.setTo(0.5, 1);
+		this.wasNextButtonCreated = true;
+	}
+
+	changeScreen() {
+		console.log("change screens.");
+		this.game.state.start("login");
 	}
 };

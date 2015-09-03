@@ -9,7 +9,8 @@ var gulp = require('gulp'),
 // TODO: We need scripts to be processed in a certain order?
 var paths = {
 	scripts: ['lib/**/*.js', 'src/engine/Game.js', 'src/**/*.js'],
-	images: 'assets/**/*'
+	images: 'assets/images/**/*',
+	audio: 'assets/audio/**/*'
 };
 
 // TODO: look into a better way to set this bool
@@ -36,11 +37,9 @@ gulp.task('html', function () {
 // Clean
 //-----------------------------------------------------------------
 
-// Currently not in use! 
-
 gulp.task('clean-assets', function(cb) {
-  	return gulp.src('build/assets/*', { read: false })
-	    .pipe(rimraf());
+  	return gulp.src('build/assets/**', { read: false })
+  		.pipe(rimraf());
 });
 
 
@@ -57,8 +56,8 @@ gulp.task('scripts', function() {
 			.pipe(babel({
 				ignore: 'lib/'
 			}))
-		    .pipe(concat('main.min.js'))
-		    .pipe(gulp.dest('build/js'));
+			.pipe(concat('main.min.js'))
+			.pipe(gulp.dest('build/js'));
 	} else {
 		pipeline = gulp.src(paths.scripts)
 			.pipe(babel({
@@ -66,10 +65,10 @@ gulp.task('scripts', function() {
 			}))
 	      	.pipe(uglify())
 	      	.pipe(concat('main.min.js'))
-		    .pipe(gulp.dest('build/js'));
+			.pipe(gulp.dest('build/js'));
 	}
 
-  return  pipeline;
+  return pipeline;
 });
 
 
@@ -81,21 +80,33 @@ gulp.task('scripts', function() {
 // task runs.
 // TODO: only optimize images that have changed?
 gulp.task('images', function() {
-	gulp.src('build/assets', { read: false }).pipe(rimraf());
+	gulp.src('build/assets/images', { read: false }).pipe(rimraf());
   	return gulp.src(paths.images)
     	.pipe(imagemin({optimizationLevel: 1}))
-    	.pipe(gulp.dest('build/assets'));
+    	.pipe(gulp.dest('build/assets/images'));
 });
 
+
+
+// Audio
+//-----------------------------------------------------------------
+
+// FIXME: currently does not always work with the watch task.
+gulp.task('audio', function() {
+	gulp.src('build/assets/audio', { read: false }).pipe(rimraf());
+	return gulp.src(paths.audio)
+    	.pipe(gulp.dest('build/assets/audio'));
+});
 
 
 // Watcher
 //-----------------------------------------------------------------
  
-gulp.task('watch', function () {
+gulp.task('watch', function() {
  	gulp.watch(['*.html'], ['html']);
  	gulp.watch(paths.scripts, ['scripts']);
  	gulp.watch(paths.images, ['images']);
+ 	gulp.watch(paths.audio, ['audio']);
 });
  
 
@@ -103,4 +114,4 @@ gulp.task('watch', function () {
 // Default Task
 //-----------------------------------------------------------------
 
-gulp.task('default', ['connect', 'scripts', 'images', 'watch']);
+gulp.task('default', ['connect', 'scripts', 'images', 'audio', 'watch']);
